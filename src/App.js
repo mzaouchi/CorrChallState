@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      tasks : [
+        {text : "Nekel", isDone : false, id : Math.random()},
+        {text : "Netrena", isDone : false, id : Math.random()},
+        {text : "Ndawech", isDone : false, id : Math.random()},
+      ],
+      textP : ''
+    }
+  }
+  addTask=()=> this.setState({tasks : [...this.state.tasks,{text : this.state.textP,isDone : false, id : Math.random()}],textP : ''})
+
+  render(){
+    return(
+      <div>
+        <h1>Challenge React State</h1>
+        {
+          this.state.tasks.map((el,i,t)=> 
+          <div>
+          <h2>{el.text}</h2>
+          <button>Done</button>
+          <button>Delete</button>
+          </div>)
+        }
+        <br/>
+        <br/>
+        <input value={this.state.textP} onChange={(e)=> this.setState({textP : e.target.value})} type='text'/>
+        <button onClick={this.addTask}>Ajouter</button>
+      </div>
+    )
+  }
 }
 
 export default App;
